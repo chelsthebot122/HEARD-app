@@ -71,6 +71,4 @@ Everything is real, local logic. Nothing is sent anywhere, and state is kept in 
 
 MIT, see `LICENSE`. Library entries are short summaries with links to their publishers; each publisher's own terms apply to the originals.
 
-## Getting real human replies (Notes)
-Do not scrape or republish Reddit or other social posts. Reddit's API requires approval, commercial use needs written permission, and its rules prohibit inferring sensitive traits like health or re-identifying users. Real replies need a moderated service of your own: adult-only accounts, volunteer listeners who accept guidelines, human moderators, report/block, rate limits, and crisis routing. `src/screens/Notes.tsx` is the front end for that; replace the local state with a server.
 # HEARD-app

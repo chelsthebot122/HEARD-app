@@ -1,0 +1,17 @@
+import { cleanEmail, cleanPhone, mailtoHref, smsHref, telHref } from "./contact";
+let bad = 0;
+const t = (n: string, ok: boolean) => { if (!ok) bad++; console.log(`${ok ? "ok  " : "FAIL"} ${n}`); };
+t("empty email is fine (optional)", cleanEmail("").ok);
+t("valid email", cleanEmail(" sam@school.edu ").value === "sam@school.edu");
+t("email without domain rejected", !cleanEmail("sam@school").ok);
+t("email with space rejected", !cleanEmail("sam @school.edu").ok);
+t("phone with formatting ok", cleanPhone("(215) 555-0143").ok);
+t("phone with + ok", cleanPhone("+44 20 7946 0958").ok);
+t("short phone rejected", !cleanPhone("12345").ok);
+t("phone with letters rejected", !cleanPhone("call me").ok);
+t("mailto encodes subject and body", mailtoHref("a@b.co", "Hi & hello", "line1\nline2")!.includes("subject=Hi%20%26%20hello") && mailtoHref("a@b.co", "s", "line1\nline2")!.includes("line1%0Aline2"));
+t("mailto refuses a body too long for a link", mailtoHref("a@b.co", "s", "x".repeat(3000)) === null);
+t("sms strips formatting", smsHref("(215) 555-0143", "hi")!.startsWith("sms:2155550143"));
+t("tel keeps +", telHref("+44 20 7946 0958") === "tel:+442079460958");
+console.log(bad ? `\n${bad} FAILED` : "\nall passed");
+process.exit(bad ? 1 : 0);
